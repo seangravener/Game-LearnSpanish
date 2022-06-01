@@ -4,32 +4,56 @@ let question = {
   correctAnswer: 1,
 };
 
+let questions = [
+  {
+    title: "gato",
+    alternatives: ["dog", "cat", "bird", "fish"],
+    correctAnswer: 1,
+  },
+  {
+    title: "ave",
+    alternatives: ["mouse", "hamster", "lizard", "bird"],
+    correctAnswer: 3,
+  },
+  {
+    title: "rata",
+    alternatives: ["cat", "fish", "rat", "shark"],
+    correctAnswer: 2,
+  },
+  {
+    title: "mosca",
+    alternatives: ["fly", "puma", "fish", "dog"],
+    correctAnswer: 0,
+  },
+];
+
 let app = {
   currentQuestion: 0,
+  currentPosition: 0,
+
   start: function () {
     const elements = document.querySelectorAll(".alternative");
     elements.forEach((el, i) => {
       el.textContent = question.alternatives[i];
 
-      // Add handler to *all* list items
       el.addEventListener("click", (e) => {
-        // Check answer. Note `this` context is preserved withitin this arrow function callback
         this.checkAnswer(i);
       });
     });
 
-    this.showQuestion(question);
+    this.showQuestion(questions[this.currentPosition]);
   },
 
   showQuestion: function (q) {
-    // 0. Cache current question
+    let titleEl = document.getElementById("title");
+    const elements = document.querySelectorAll(".alternative");
+
+    titleEl.textContent = q.title;
     this.currentQuestion = q;
 
-    // 1. select dom element
-    let titleEl = document.getElementById("title");
-
-    // 2. modify it
-    titleEl.textContent = question.title;
+    elements.forEach((el, i) => {
+      el.textContent = q.alternatives[i];
+    });
   },
 
   checkAnswer: function (selectionId) {
@@ -37,6 +61,17 @@ let app = {
       console.log("Correct answer!");
     } else {
       console.log("Incorrect answer!");
+    }
+
+    this.increasePosition();
+    this.showQuestion(questions[this.currentPosition]);
+  },
+
+  increasePosition: function () {
+    this.currentPosition++;
+
+    if (this.currentPosition == questions.length) {
+      this.currentPosition = 0;
     }
   },
 
