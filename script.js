@@ -18,3 +18,7 @@ function showQuestion(q) {
 }
 
 showQuestion(question);
+
+document
+  .getElementById("btn")
+  .addEventListener("click", (e) => console.log("click!"));
