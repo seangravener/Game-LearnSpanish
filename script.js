@@ -12,9 +12,20 @@ function showQuestion(q) {
   titleEl.textContent = question.title;
 
   // selecting by a query
-  document
-    .querySelectorAll(".alternative")
-    .forEach((el, i) => (el.textContent = question.alternatives[i]));
+  const elements = document.querySelectorAll(".alternative");
+  elements.forEach((el, i) => {
+    el.textContent = question.alternatives[i];
+
+    // Add handler to *all* list items
+    el.addEventListener("click", (e) => {
+      // check answer
+      if (q.correctAnswer === i) {
+        console.log("Correct answer");
+      } else {
+        console.log("Incorrect");
+      }
+    });
+  });
 }
 
 showQuestion(question);
