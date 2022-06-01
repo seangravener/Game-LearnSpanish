@@ -4,14 +4,7 @@ let question = {
   correctAnswer: 1,
 };
 
-function showQuestion(q) {
-  // 1. select dom element
-  let titleEl = document.getElementById("title");
-
-  // 2. modify it
-  titleEl.textContent = question.title;
-
-  // selecting by a query
+function start(params) {
   const elements = document.querySelectorAll(".alternative");
   elements.forEach((el, i) => {
     el.textContent = question.alternatives[i];
@@ -19,16 +12,23 @@ function showQuestion(q) {
     // Add handler to *all* list items
     el.addEventListener("click", (e) => {
       // check answer
-      if (q.correctAnswer === i) {
-        console.log("Correct answer");
-      } else {
-        console.log("Incorrect");
-      }
+      console.log("check answer");
     });
   });
+
+  showQuestion(question);
 }
 
-showQuestion(question);
+function showQuestion(q) {
+  // 1. select dom element
+  let titleEl = document.getElementById("title");
+
+  // 2. modify it
+  titleEl.textContent = question.title;
+}
+
+// showQuestion(question);
+start();
 
 document
   .getElementById("btn")
