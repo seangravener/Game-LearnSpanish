@@ -63,8 +63,24 @@ let app = {
       console.log("Incorrect answer!");
     }
 
+    this.showResult();
     this.increasePosition();
     this.showQuestion(questions[this.currentPosition]);
+  },
+
+  showResult() {
+    let resultEl = document.getElementById("result");
+    let resultTxt = "";
+
+    if (this.currentQuestion.correctAnswer === selectionId) {
+      console.log("Correct answer!");
+    } else {
+      console.log(
+        `Incorrect (answer is "${
+          this.currentQuestion.alternatives[this.currentPosition]
+        }")`
+      );
+    }
   },
 
   increasePosition: function () {
